@@ -6,7 +6,10 @@ const ownerScheme = mongoose.Schema({
     fullname:String,
     email:String,
     password:String,
-    
+    products:{
+        type:Array,
+        default:[]
+    },
     isAdmin:Boolean,
     
     picture:String,

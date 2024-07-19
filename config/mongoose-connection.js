@@ -1,12 +1,12 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const dbgr = require('debug')('development:mongoose');
+const config = require('config');
 
-mongoose
-.connect('mongodb://127.0.0.1:27017/App')
-.then(function(){
-    console.log("connected");
-})
-.catch(function(err){
-    console.log(err)
-})
+// Check if there is already a connection
+if (mongoose.connection.readyState === 0) {
+    mongoose.connect(`${config.get("MONGODB_URI")}/app`, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => dbgr("connected"))
+    .catch(err => console.log(err));
+}
 
-module.exports=mongoose.connection
+module.exports = mongoose.connection;
